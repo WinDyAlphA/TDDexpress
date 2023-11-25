@@ -11,7 +11,12 @@ const loadDatabase = (db: Database): void => {
 
 db.prepare( `
 CREATE TABLE IF NOT EXISTS user
-(id VARCHAR(255) PRIMARY KEY NOT NULL, name VARCHAR(255) NOT NULL) `).run();
+(user_id VARCHAR(255) PRIMARY KEY NOT NULL, name VARCHAR(255) NOT NULL) `).run();
+
+db.prepare( `
+CREATE TABLE IF NOT EXISTS message
+(message_id VARCHAR(255) PRIMARY KEY NOT NULL, content TEXT NOT NULL, timestamp INTEGER) `).run();
+
 
 };
 

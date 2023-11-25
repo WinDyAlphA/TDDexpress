@@ -6,10 +6,13 @@ import createApp from './api/utils/server';
 
 const app = createApp();
 
-const server = createServer(app) 
+
+
+export const server = createServer(app) 
 
 
 connectionDB().then(() => {
     server.listen('8080', () => {
     console.log('Listening on port 8080'); });
+    
 }).catch((error) => console.error('DB Error', error))

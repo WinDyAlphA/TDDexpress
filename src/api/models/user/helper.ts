@@ -12,9 +12,9 @@ export namespace UserHelper {
             return []; // Ou une autre action à prendre en cas d'erreur
         }
     }
-    export const getUserById = (id: string): User | null => {
+    export const getUserById = (user_id: string): User | null => {
         try {
-            const result = database.prepare('SELECT * FROM user WHERE id = ?').get(id);
+            const result = database.prepare('SELECT * FROM user WHERE user_id = ?').get(user_id);
             return result || null; // Retourne null si result est falsy (pas d'utilisateur trouvé)
         } catch (error) {
             console.error('Erreur lors de la récupération des utilisateurs :', error);
@@ -25,7 +25,7 @@ export namespace UserHelper {
         const uuid = uuidv4();
         try {
             
-            database.prepare('INSERT INTO user(id, name) VALUES(?, ?)').run(uuid, name);
+            database.prepare('INSERT INTO user(user_id, name) VALUES(?, ?)').run(uuid, name);
             return getUserById(uuid);
         } catch (error) {
             console.error('Erreur lors de la création du user :', error);
