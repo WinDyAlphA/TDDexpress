@@ -3,7 +3,13 @@ import { database } from '../../config/database';
 
 export namespace KwizzHelper {
     export const getAllKwizz = (): Array<Kwizz> => {
-        return database.prepare('SELECT * FROM kwizz').all(); 
+        try {
+            const result = database.prepare('SELECT * FROM kwizz').all();
+            return result;
+        } catch (error) {
+            console.error('Erreur lors de la récupération des kwizz :', error);
+            return []; // Ou une autre action à prendre en cas d'erreur
+        }
     }
 
     export const getKwizzById = (id: string): Kwizz => {
