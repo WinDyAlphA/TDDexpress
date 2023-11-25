@@ -1,5 +1,5 @@
-// testDatabase.ts
-import { connectionDB,database } from "./database";
+
+import { database } from '../config/database';
 
 export const insertTestData = () => {
     const testData = [
@@ -18,14 +18,14 @@ export const insertTestData = () => {
         console.error('Erreur lors de l\'insertion des données de test :', error);
     }
 };
+
 export const setupTestDatabase = async () => {
-    // Établir la connexion à la base de données de test ou nettoyer la base de données
-    // en fonction de votre approche de test.
-    await connectionDB(); // Assurez-vous que cette fonction prend en charge la configuration de test.
+    // Insérer des données de test avant les tests
     insertTestData();
 };
 
 export const teardownTestDatabase = async () => {
+    // Nettoyer les données de test après les tests
     try {
         const stmt = database.prepare('DELETE FROM user');
         stmt.run();

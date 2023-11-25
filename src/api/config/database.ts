@@ -8,10 +8,10 @@ const connectionDB = (): Promise<void> => {
   });
 };
 const loadDatabase = (db: Database): void => {
-db.prepare( `
-CREATE TABLE IF NOT EXISTS kwizz
-(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255) NOT NULL) `).run();
 
+db.prepare( `
+CREATE TABLE IF NOT EXISTS user
+(id VARCHAR(255) PRIMARY KEY NOT NULL, name VARCHAR(255) NOT NULL) `).run();
 
 };
 

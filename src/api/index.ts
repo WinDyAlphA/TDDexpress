@@ -1,5 +1,5 @@
 import express from 'express';
-import kwizz from './routes/kwizz';
+import user from './routes/user';
 
 
 
@@ -7,7 +7,8 @@ import kwizz from './routes/kwizz';
 const router = express.Router(); 
 
 
-router.use('/kwizz', kwizz);
+
+router.use('/user', user);
 
 
 
