@@ -1,0 +1,40 @@
+version: '3.8'  # You may adjust the version as needed
+
+services:
+  api:
+    image: node:latest
+    command: npm run start
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
+  postgres:
+    image: postgres:14.5
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend
+
+networks:
+  backend:

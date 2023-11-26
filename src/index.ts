@@ -10,10 +10,29 @@ const app = createApp();
 
 export const server = createServer(app) 
 
+let retries = 5;
 
-connectionDB().then(() => {
-    server.listen('8080', () => {
-    console.log('Listening on port 8080'); });
-    
-}).catch((error) => console.error('DB Error', error))
+const startConnectionDB = async () => {
+    while (retries) {
+        try {
+            connectionDB().then(() => {
+                server.listen('8080', () => {
+                console.log('Listening on port 8080'); });
+                console.log('Connected to database');
+                
+            }).catch((error) => console.error('DB Error', error))
+            
+            break;
+        } catch (error) {
+            console.log(error);
+            retries -= 1;
+            console.log(`retries left: ${retries}`);
+            // wait 5 seconds
+            await new Promise(res => setTimeout(res, 5000));
+        }
+    }
+}
+
+startConnectionDB();
+
 
