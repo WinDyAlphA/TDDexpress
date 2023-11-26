@@ -3,8 +3,8 @@ import supertest from 'supertest';
 const app = createApp();
 import { server } from '../../index';
 
-
-import { setupTestDatabase, teardownMessageTable, setupMessageTable } from '../config/test';
+import { setupTestDatabase, teardownTestDatabase } from '../config/tests/test';
+import { teardownMessageTable, setupMessageTable } from '../config/tests/message';
 
 const payloadMessage = [
     { message_id: '1', content: 'Thierry henri est le meilleur joueur de football rien a foutre je l\'ai touché le cheque', timestamp:1700952220888, },
@@ -26,6 +26,7 @@ beforeEach(() => {
 });
 afterAll(async () => {
     await teardownMessageTable();
+    await teardownTestDatabase();
     server.close();
 });
 
@@ -39,13 +40,6 @@ describe('API Message', () => {
             });
         });
 
-        describe('étant donné que le message existe', () => {
-            it('devrait renvoyer un message', async () => {
-                await supertest(app).get('/api/message/1').then((response) => {
-                    expect(response.body).toBeInstanceOf(Object);
-                });
-            });
-        });
 
         describe('étant donné que le message existe et est défini', () => {
             it('devrait renvoyer un message de test', async () => {

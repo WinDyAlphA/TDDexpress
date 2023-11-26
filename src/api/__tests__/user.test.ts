@@ -1,7 +1,8 @@
 import createApp from '../utils/server';
 import supertest from 'supertest';
 const app = createApp();
-import { setupTestDatabase, teardownUserTable, setupUserTable } from '../config/test';
+import { setupTestDatabase, teardownTestDatabase } from '../config/tests/test';
+import { teardownUserTable, setupUserTable } from '../config/tests/user';
 import { server } from '../../index';
 
 const payloadUser = [
@@ -25,6 +26,7 @@ beforeEach(() => {
 afterAll(async () => {
     await teardownUserTable();
     server.close();
+    await teardownTestDatabase();
     await new Promise<void>(resolve => setTimeout(() => resolve(), 1000));
 });
 
@@ -36,14 +38,6 @@ describe('API Utilisateurs', () => {
             it('devrait renvoyer un statut 404', async () => {
                 await supertest(app).get('/api/user/39232').then((response) => {
                     expect(response.status).toBe(404);
-                });
-            });
-        });
-
-        describe('étant donné que l\'utilisateur existe', () => {
-            it('devrait renvoyer un utilisateur', async () => {
-                await supertest(app).get('/api/user/1').then((response) => {
-                    expect(response.body).toBeInstanceOf(Object);
                 });
             });
         });
