@@ -20,7 +20,9 @@ const startConnectionDB = async () => {
                 console.log('Listening on port 8080'); });
                 console.log('Connected to database');
                 
-            }).catch((error) => console.error('DB Error', error))
+            }).catch((error) => {
+                console.error('DB Error', error)
+            })
             
             break;
         } catch (error) {

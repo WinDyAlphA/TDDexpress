@@ -1,7 +1,7 @@
 ## Chat Intelligent avec Personnages Historiques et Célébrités
 Bienvenue sur notre plateforme de chat intelligente, où vous pouvez avoir des conversations captivantes avec des personnages historiques, des célébrités fictives ou même des personnages de films préférés.  
 
-Notre application utilise l'API ChatGPT pour simuler des conversations réalistes et engageantes, offrant une expérience unique et divertissante.
+Notre application utilise l'API ChatGPT pour simuler des conversations réalistes et engageantes, offrant une expérience unique et divertissante. 
 
 ---
 

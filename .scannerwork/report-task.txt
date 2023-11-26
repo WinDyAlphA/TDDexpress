@@ -1,0 +1,6 @@
+projectKey=p2109548_desmotsdepoque_AYv2M9d3ogIeyBk9pVVD
+serverUrl=https://9093-134-214-214-203.ngrok-free.app
+serverVersion=10.3.0.82913
+dashboardUrl=https://9093-134-214-214-203.ngrok-free.app/dashboard?id=p2109548_desmotsdepoque_AYv2M9d3ogIeyBk9pVVD
+ceTaskId=AYwM6CvCUl7j2BLSG1Kp
+ceTaskUrl=https://9093-134-214-214-203.ngrok-free.app/api/ce/task?id=AYwM6CvCUl7j2BLSG1Kp
