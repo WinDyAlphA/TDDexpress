@@ -25,7 +25,6 @@ Pré-requis : Node.js et npm doivent être installés sur votre machine.
 
 ```cd TDDexpress && npm install```
 
-Configuration de l'API : Obtenez une clé API ChatGPT et configurez-la dans le fichier .env 
 
 
 
