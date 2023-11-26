@@ -1,0 +1,37 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.8'  # Adjust the version as needed
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start PostgreSQL container
+        run: docker-compose up -d postgres
+        working-directory: .  # Adjust the path as needed
+
+      - name: Wait for PostgreSQL to be ready
+        run: docker-compose exec postgres pg_isready -U postgres -h localhost -p 5432 -d dmd_dev -t 30
+        working-directory: .  # Adjust the path as needed
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Stop PostgreSQL container
+        run: docker-compose down
+        working-directory: .  # Adjust the path as needed
