@@ -44,7 +44,7 @@ describe('API Message', () => {
         describe('étant donné que le message existe et est défini', () => {
             it('devrait renvoyer un message de test', async () => {
                 await supertest(app).get('/api/message/1').then((response) => {
-                    expect(response.body).toEqual({ message_id: '1', content: 'Thierry henri est le meilleur joueur de football rien a foutre je l\'ai touché le cheque', timestamp: expect.any(Number) });
+                    expect(response.body).toEqual({ message_id: '1', content: 'Thierry henri est le meilleur joueur de football rien a foutre je l\'ai touché le cheque', timestamp: expect.any(String) });
                 });
             });
         });
@@ -63,7 +63,7 @@ describe('API Message', () => {
             it('devrait renvoyer un tableau de messages', async () => {
                 await setupMessageTable(payloadMessage);
                 await supertest(app).get('/api/message').then((response) => {
-                    expect(response.body).toEqual([{ message_id: '1', content: 'Thierry henri est le meilleur joueur de football rien a foutre je l\'ai touché le cheque', timestamp: expect.any(Number) }, { message_id: '2', content: 'Bon ca commence a bien faire j\'ai pas tout la nuit (si), en sah j\'aime bien l\'idée du projet même si un peu d\'aide ne serait pas de refus', timestamp: expect.any(Number) }]);
+                    expect(response.body).toEqual([{ message_id: '1', content: 'Thierry henri est le meilleur joueur de football rien a foutre je l\'ai touché le cheque', timestamp: expect.any(String) }, { message_id: '2', content: 'Bon ca commence a bien faire j\'ai pas tout la nuit (si), en sah j\'aime bien l\'idée du projet même si un peu d\'aide ne serait pas de refus', timestamp: expect.any(String) }]);
                 });
             });
         });
@@ -79,7 +79,7 @@ describe('API Message', () => {
         describe('étant donné que le message est créé et défini', () => {
             it('devrait renvoyer un message de test', async () => {
                 await supertest(app).post('/api/message/create').send({ content: 'test' }).then((response) => {
-                    expect(response.body).toEqual({ message_id: expect.any(String), content: 'test', timestamp: expect.any(Number) });
+                    expect(response.body).toEqual({ message_id: expect.any(String), content: 'test', timestamp: expect.any(String) });
                 });
             });
         });

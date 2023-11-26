@@ -1,5 +1,5 @@
 // testDatabase.ts
-import { connectionDB,database } from "../database";
+import { connectionDB, pool } from "../database";
 
 
 
@@ -16,5 +16,5 @@ export const setupTestDatabase = async () => {
 export const teardownTestDatabase = async () => {
     // Fermer la connexion à la base de données de test ou nettoyer la base de données
     // en fonction de votre approche de test.
-    await database.close(); // Assurez-vous que cette fonction prend en charge la configuration de test.
+    await pool.end(); // Assurez-vous que cette fonction prend en charge la configuration de test.
 }

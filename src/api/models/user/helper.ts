@@ -1,36 +1,40 @@
 import { User } from './user';
-import { database } from '../../config/database';
+import { pool } from '../../config/database';
+import { QueryResult } from 'pg';
 import { v4 as uuidv4 } from 'uuid';
 
 export namespace UserHelper {
-    export const getAllUser = (): Array<User> => {
+    export const getAllUser = async (): Promise<Array<User>> => {
         try {
-            const result = database.prepare('SELECT * FROM user').all();
-            return result;
+            const result: QueryResult = await pool.query('SELECT * FROM dmd_user', []);
+            return result.rows;
         } catch (error) {
             console.error('Erreur lors de la récupération des user :', error);
             return []; // Ou une autre action à prendre en cas d'erreur
         }
     }
-    export const getUserById = (user_id: string): User | null => {
+
+    export const getUserById = async (user_id: string): Promise<User | null> => {
         try {
-            const result = database.prepare('SELECT * FROM user WHERE user_id = ?').get(user_id);
-            return result || null; // Retourne null si result est falsy (pas d'utilisateur trouvé)
-        } catch (error) {
-            console.error('Erreur lors de la récupération des utilisateurs :', error);
+            const result: QueryResult = await pool.query('SELECT * FROM dmd_user WHERE user_id = $1', [user_id]);
+            return result.rows[0] || null; // Retourne null si result est falsy (pas d'utilisateur trouvé)
+        }
+        catch (error) {
+            console.error('Erreur lors de la récupération de l\'user :', error);
             return null; // Ou une autre action à prendre en cas d'erreur
         }
     }
-    export const createUser = (name: string): User | null => {
+
+    export const createUser = async (name: string): Promise<User | null> => {
         const uuid = uuidv4();
         try {
-            
-            database.prepare('INSERT INTO user(user_id, name) VALUES(?, ?)').run(uuid, name);
+            await pool.query('INSERT INTO dmd_user(user_id, name) VALUES($1, $2)', [uuid, name]);
             return getUserById(uuid);
         } catch (error) {
-            console.error('Erreur lors de la création du user :', error);
+            console.error('Erreur lors de la création de l\'user :', error);
             return null; // Ou une autre action à prendre en cas d'erreur
         }
     }
+
 
 }

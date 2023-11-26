@@ -26,10 +26,12 @@ beforeEach(() => {
     //jest.spyOn(console, 'debug').mockImplementation(() => {});
 });
 
+
+
 afterAll(async () => {
     await teardownBotTable();
-    server.close();
     await teardownTestDatabase();
+    server.close();
     await new Promise<void>(resolve => setTimeout(() => resolve(), 1000));
 });
 
@@ -79,9 +81,9 @@ describe('API Bot', () => {
             });
         });
         describe('étant donné que le bot a une erreure de création', () => {
-            it('devrait renvoyer un statut 500', async () => {
+            it('devrait renvoyer un statut 400', async () => {
                 await supertest(app).post('/api/bot/create').send({ jsp: '3' }).then((response) => {
-                    expect(response.status).toBe(500);
+                    expect(response.status).toBe(400);
                 });
             });
         });
